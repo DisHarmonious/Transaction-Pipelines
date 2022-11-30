@@ -1,0 +1,23 @@
+############################################
+####### PROJECT EXPLANATION ################
+############################################
+
+The goal of this project is to visualize valid and 
+potentially dangerous (flagged) transactions.
+It does so by creating two pipelines, corresponding 
+to those transactions.
+We have trained a Random Forest ML model using Pyspark
+to determine the nature of the transactions. We have exported
+said model, and loaded it for "production" purposes in Kafka.
+The data is then sent to logstash, then to elastic, and finally
+to kibana, where it is visualized.
+
+The pipeline is as follows:
+transaction->Kafka producer->ML model->Kafka consumer->logstash->elastic->kibana
+
+Therefore, for valid transactions, the pipeline is:
+transaction->Kafka producer->ML model->Kafka consumer for valid transactions->logstash->elastic index for valid transactions->kibana
+
+while for flagged transactions, the pipeline is:
+transaction->Kafka producer->ML model->Kafka consumer for flagged transactions->logstash->elastic index for flagged transactions->kibana
+

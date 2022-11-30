@@ -1,0 +1,6 @@
+# List of pipelines to be loaded by Logstash
+
+- pipeline.id: pipeline-1
+  path.config: "./config/conf/flagged_transactions.conf"
+- pipeline.id: pipeline-2
+  path.config: "./config/conf/valid_transactions.conf"
